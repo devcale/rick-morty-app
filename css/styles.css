@@ -1,0 +1,88 @@
+body {
+  font-family: "Open Sans";
+  font-size: 22px;
+}
+.navbar {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.navbar-pages {
+  display: flex;
+  width: 50%;
+  justify-content: start;
+}
+
+.navbar-page {
+  margin-left: 5%;
+}
+
+.navbar-lang {
+  margin-right: 5%;
+}
+
+.main-title {
+  display: flex;
+  width: 100%;
+  height: 10vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.character-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 1%;
+  width: 100%;
+}
+
+.character-card {
+  border: 1px solid #ccc;
+  padding: 1%;
+  margin: 1%;
+  border-radius: 5px;
+  width: 12%;
+  height: 30vh;
+  font-size: 0.5em;
+  text-align: center;
+}
+
+.character-name {
+  margin: 0;
+}
+
+.character-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 8px;
+}
+
+.character-card:hover {
+  transform: scale(1.1);
+}
+
+.detail-container {
+  opacity: 0;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.detail-container.show {
+  opacity: 1;
+  height: auto;
+  width: auto;
+}
+
+.characters-section {
+  display: flex;
+}
+
+.page-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
