@@ -1,6 +1,7 @@
 body {
-  font-family: "Open Sans";
-  font-size: 22px;
+  font-family: "Quantico";
+  background-color: rgb(0, 0, 0);
+  color: #b1de25;
 }
 .navbar {
   display: flex;
@@ -28,6 +29,7 @@ body {
   height: 10vh;
   justify-content: center;
   align-items: center;
+  color: #b1de25;
 }
 
 .character-container {
@@ -39,25 +41,53 @@ body {
 }
 
 .character-card {
-  border: 1px solid #ccc;
-  padding: 1%;
-  margin: 1%;
+  position: relative;
+  border: 1px solid #b1de25;
+  padding: 2px;
+  margin: 2%;
   border-radius: 5px;
-  width: 12%;
-  height: 30vh;
-  font-size: 0.5em;
+  width: 12vw;
+  height: 12vw;
   text-align: center;
+  transition: transform 0.3s;
+  position: relative;
+  display: inline-block;
+  background-color: rgb(0, 0, 0);
+  border-radius: 5px;
+  transition: all 0.3s;
 }
 
 .character-name {
   margin: 0;
+  width: 90%;
+  padding: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  color: #b1de25;
+  text-shadow: 0px 0px 0.5rem #000, 0px 0px 0.5rem #000, 0px 0px 0.5rem #000,
+    0px 0px 0.5rem #000;
+  border-radius: 5px;
+  text-align: center;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.character-card img {
+.character-image {
+  display: block;
   width: 100%;
   height: auto;
   border-radius: 5px;
-  margin-bottom: 8px;
+  width: 100%;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.character-card:hover .character-image {
+  opacity: 0.85;
+  filter: sepia(10%) hue-rotate(340deg);
 }
 
 .character-card:hover {
@@ -66,19 +96,36 @@ body {
 
 .detail-container {
   opacity: 0;
-  height: 0;
+  height: 100%;
   width: 0;
   overflow: hidden;
+  color: #b1de25;
 }
 
 .detail-container.show {
   opacity: 1;
-  height: auto;
-  width: auto;
+  height: 100%;
+  width: 16vw;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding-top: 1%;
+}
+
+.detail-image-container {
+  width: 16vw;
+  height: 16vw;
+  object-fit: cover;
+}
+
+.detail-char-img {
+  width: 100%;
+  height: 100%;
 }
 
 .characters-section {
   display: flex;
+  height: 100%;
 }
 
 .page-selector {

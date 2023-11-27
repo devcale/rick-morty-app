@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 });
 
                 updatePageSelect(data.info.pages);
+                pageSelect.value = currentPage;
             })
             .catch(error => {
                 console.log('Error fetching characters:', error);
@@ -30,17 +31,30 @@ document.addEventListener('DOMContentLoaded', function(){
         const card = document.createElement('div');
         card.classList.add('character-card');
 
-        const characterName = document.createElement('h3');
+        const characterName = document.createElement('h2');
         characterName.classList.add('character-name');
         characterName.textContent = character.name;
 
         const characterImage = document.createElement('img');
-        characterImage.src = character.image;
+        characterImage.classList.add('character-image');
+        characterImage.src = '/images/placeholder.jpeg';
+        characterImage.id = `characterImage${character.id}`;
         characterImage.alt = character.name;
 
         card.appendChild(characterImage);
         card.appendChild(characterName);
         
+        fetch(character.image)
+            .then(response => response.blob())
+            .then(blob => {
+                const imageUrl = URL.createObjectURL(blob);
+                const characterImg = document.getElementById(`characterImage${character.id}`);
+                characterImg.src = imageUrl;
+            })
+            .catch(error => {
+                console.log('Error fetching image:', error);
+            });
+
 
         return card;
     }
@@ -53,18 +67,22 @@ document.addEventListener('DOMContentLoaded', function(){
         } else {
             showCharacterDetails(character);
             currentCharacter = character;
-            characterContainer.style.width = '75vw';
+            characterContainer.style.width = '85vw';
         }
     }
 
     function showCharacterDetails(character) {
         detailContainer.innerHTML = `
             <h2>${character.name}</h2>
-            <img src="${character.image}" alt="${character.name}">
+            <div class="detail-image-container">
+                <img src="${character.image}" alt="${character.name}" class="detail-char-img">
+            </div>
             <p>Status: ${character.status}</p>
             <p>Species: ${character.species}</p>
+            <p>Type: ${character.type}</p>
             <p>Gender: ${character.gender}</p>
             <p>Origin: ${character.origin.name}</p>
+            <p>Location: ${character.location.name}</p>
         `;
         detailContainer.classList.add('show');
     }
