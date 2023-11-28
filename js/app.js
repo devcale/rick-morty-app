@@ -209,20 +209,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 <h2 class="detail-title">${character.name}</h2>
                 <div class="close-button" id="closeDetailButton"><i class="fa-solid fa-xmark"></i></div>
             </div>
+            <div class="image-and-summary">
+                <div class="detail-image-container">
+                    <img src="${character.image}" alt="${character.name}" class="detail-char-img">
+                </div>
+                <div class="data-summary">
+                    <p>Status:  ${character.status}</p>
+                    <p>Species:  ${character.species}</p>
+                    ${character.type != "" ? `<p>Type: ${character.type}</p>` : ""}
+                    <p>Gender: ${character.gender}</p>
+                    <p>Origin: ${character.origin.name}</p>
+                    <p>Last Known Location: ${character.location.name}</p>
+                    <p class="episode-list-title">Episodes:</p>
+                    <ul class="episode-list" id="episodeList"></ul>
+                </div>
+            </div>
             
-            <div class="detail-image-container">
-                <img src="${character.image}" alt="${
-      character.name
-    }" class="detail-char-img">
-            </div> 
-            <p>Status:  ${character.status}</p>
-            <p>Species:  ${character.species}</p>
-            ${character.type != "" ? `<p>Type: ${character.type}</p>` : ""}
-            <p>Gender: ${character.gender}</p>
-            <p>Origin: ${character.origin.name}</p>
-            <p>Last Known Location: ${character.location.name}</p>
-            <p>Episodes:</p>
-            <ul class="episode-list" id="episodeList"></ul>
         `;
     fetchEpisodeInfo(character.id);
 
@@ -230,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     detailContainer.classList.add("show");
     currentCharacter = character;
-    characterContainer.style.width = "85vw";
+    // characterContainer.style.width = "85vw";
 
     const closeButton = document.getElementById("closeDetailButton");
     closeButton.addEventListener("click", () => hideCharacterDetails());
