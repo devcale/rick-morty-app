@@ -15,20 +15,54 @@
     <div class="navbar">
       <div class="navbar-pages"></div>
 
-      <div class="navbar-lang">Languages</div>
+      <!-- <div class="navbar-lang">Languages</div> -->
     </div>
     <div class="main-title">
       <h1>Rick and Morty Character Explorer</h1>
     </div>
+    <div class="search-options">
+      <div class="filters-container" id="filterContainer">
+        <div class="filters-title">Filter by:</div>
+        <div class="filters-list">
+          <!-- <div>Status</div>
+          <div>Species</div>
+          <div>Type</div>
+          <div>Gender</div> -->
+        </div>
+      </div>
+      <input type="text" id="searchInput" placeholder="Search characters..." />
+      <div class="page-select" id="pageSelect">
+        <div class="select-selected">Select Page</div>
+        <div class="select-items">
+          <div>Page 1</div>
+          <div>Page 2</div>
+        </div>
+      </div>
+    </div>
+
     <div class="characters-section">
       <div class="character-container" id="characterContainer"></div>
       <div class="detail-container" id="detailContainer"></div>
     </div>
-    <div class="page-selector">
-      <label for="pageSelect">Select Page:</label>
-      <select id="pageSelect"></select>
+    <div class="no-matches-container" id="noMatchesContainer">
+      <div class="no-matches">
+        No matches were found <i class="fa-regular fa-face-frown"></i>
+      </div>
+    </div>
+    <div class="page-nav-container">
+      <div class="page-nav" id="prevPageButton">
+        <i class="fa-solid fa-arrow-left"></i> previous page
+      </div>
+
+      <div class="page-nav" id="nextPageButton">
+        next page <i class="fa-solid fa-arrow-right"></i>
+      </div>
     </div>
 
     <script src="js/app.js"></script>
+    <script
+      src="https://kit.fontawesome.com/feb22b1c2a.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
