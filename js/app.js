@@ -342,7 +342,7 @@ const apiUrl = `https://rickandmortyapi.com/api/character/`;
 document.addEventListener("DOMContentLoaded", function () {
 
   //---------------------EVENT LISTENERS---------------------
-  mainTitle.addEventListener("click", () => resetPage);
+  mainTitle.addEventListener("click", () => resetPage());
 
   prevPageButton.addEventListener("click", () => changePage(currentPage - 1));
 
