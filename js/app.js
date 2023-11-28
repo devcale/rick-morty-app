@@ -42,6 +42,7 @@ const apiUrl = `https://rickandmortyapi.com/api/character/`;
     speciesFilter = "";
     typeFilter = "";
     genderFilter = "";
+    hideCharacterDetails();
     resetFilters();
     fetchAndDisplayData();
   }
