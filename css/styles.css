@@ -7,26 +7,6 @@ body {
 /* Extra small devices (phones, 600px and down) */
 /* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 @media only screen and (max-width: 600px) {
-  .navbar {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .navbar-pages {
-    display: flex;
-    width: 50%;
-    justify-content: start;
-  }
-
-  .navbar-page {
-    margin-left: 5%;
-  }
-
-  .navbar-lang {
-    margin-right: 5%;
-  }
-
   .main-title {
     display: flex;
     width: 100%;
@@ -35,6 +15,10 @@ body {
     align-items: center;
     text-align: center;
     color: #b1de25;
+  }
+
+  .main-title h1 {
+    cursor: pointer;
   }
 
   .search-options {
@@ -416,6 +400,10 @@ body {
     align-items: center;
     text-align: center;
     color: #b1de25;
+  }
+
+  .main-title h1 {
+    cursor: pointer;
   }
 
   .search-options {
@@ -810,6 +798,10 @@ body {
     color: #b1de25;
   }
 
+  .main-title h1 {
+    cursor: pointer;
+  }
+
   .search-options {
     display: flex;
     justify-content: space-evenly;
@@ -1151,6 +1143,11 @@ body {
     margin-bottom: 8%;
   }
 
+  .data-summary {
+    align-self: flex-start;
+    width: 100%;
+  }
+
   .episode-list-title {
     margin-bottom: 0;
     padding-bottom: 0;
@@ -1158,6 +1155,8 @@ body {
 
   .episode-list {
     height: 20vh;
+    width: 80%;
+    align-self: center;
     overflow-y: scroll;
     margin-top: 1%;
     padding-top: 2%;
@@ -1194,26 +1193,6 @@ body {
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 /* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 @media only screen and (min-width: 1200px) {
-  .navbar {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .navbar-pages {
-    display: flex;
-    width: 50%;
-    justify-content: start;
-  }
-
-  .navbar-page {
-    margin-left: 5%;
-  }
-
-  .navbar-lang {
-    margin-right: 5%;
-  }
-
   .main-title {
     display: flex;
     width: 100%;
@@ -1222,6 +1201,10 @@ body {
     align-items: center;
     font-size: 24px;
     color: #b1de25;
+  }
+
+  .main-title h1 {
+    cursor: pointer;
   }
 
   .search-options {
@@ -1291,7 +1274,7 @@ body {
   .filter-options-container.show {
     background-color: #202020;
     opacity: 1;
-    height: 10vh;
+    height: 20vh;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
@@ -1502,7 +1485,7 @@ body {
   .detail-container.show {
     opacity: 1;
     height: 100%;
-    width: 16vw;
+    width: 22vw;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -1528,14 +1511,14 @@ body {
   }
 
   .detail-image-container {
-    width: 16vw;
-    height: 16vw;
-    object-fit: cover;
+    width: 20vw;
+    height: 20vw;
   }
 
   .detail-char-img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
   }
 
   .episode-list {
@@ -1568,9 +1551,9 @@ body {
 }
 
 /* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
-/* Extra large devices (large laptops and desktops, 2000px and up) */
+/* Extra large devices (large laptops and desktops, 1800px and up) */
 /* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
-@media only screen and (min-width: 2000px) {
+@media only screen and (min-width: 1800px) {
   .main-title {
     display: flex;
     width: 100%;
@@ -1579,6 +1562,10 @@ body {
     align-items: center;
     font-size: 32px;
     color: #b1de25;
+  }
+
+  .main-title h1 {
+    cursor: pointer;
   }
 
   .character-name {
@@ -1597,5 +1584,9 @@ body {
     text-align: center;
     opacity: 1;
     transition: opacity 0.3s ease-in-out;
+  }
+
+  .filter-options-container.show {
+    height: 12vh;
   }
 }

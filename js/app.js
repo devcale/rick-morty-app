@@ -1,4 +1,7 @@
-document.addEventListener("DOMContentLoaded", function () {
+const apiUrl = `https://rickandmortyapi.com/api/character/`;
+
+  //----------------------DOCUMENT ELEMENTS-------------------------------
+  const mainTitle = document.getElementById("mainTitle");
   const characterContainer = document.getElementById("characterContainer");
   const detailContainer = document.getElementById("detailContainer");
   const noMatchesContainer = document.getElementById("noMatchesContainer");
@@ -9,7 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const filterOptions = document.getElementById("filterOptionsContainer");
   const applyFilterButton = document.getElementById("applyFilterButton");
   const resetFilterButton = document.getElementById("resetFilterButton");
-  const apiUrl = `https://rickandmortyapi.com/api/character/`;
+  const searchInput = document.getElementById("searchInput");
+  const speciesInput = document.getElementById("speciesInput");
+  const typeInput = document.getElementById("typeInput");
+
+  //------------------------VARIABLES----------------------
   let currentCard = null;
   let currentCharacter = null;
   let currentPage = 1;
@@ -23,123 +30,66 @@ document.addEventListener("DOMContentLoaded", function () {
   let typeFilter = "";
   let genderFilter = "";
 
-  //-------------------------------------------
+  //------------------------------FUNCTIONS--------------------------------------
 
-  prevPageButton.addEventListener("click", () => changePage(currentPage - 1));
-  nextPageButton.addEventListener("click", () => changePage(currentPage + 1));
-  filterButton.addEventListener("click", () => {
+  function resetPage() {
+    searchInput.value = "";
+    currentPage = 1;
+    currentCard = null;
+    currentCharacter = null;
+    nameFilter = "";
+    statusFilter = "";
+    speciesFilter = "";
+    typeFilter = "";
+    genderFilter = "";
+    resetFilters();
+    fetchAndDisplayData();
+  }
+
+  function toggleFilters() {
     if (filtersShown) {
       filterOptions.classList.remove("show");
     } else {
       filterOptions.classList.add("show");
     }
     filtersShown = !filtersShown;
-  });
+  }
 
-  applyFilterButton.addEventListener("click", function () {
-    
+  function applyFilters() {
     statusFilter =
-        document.querySelector('input[name="status"]:checked') == null
-          ? ""
-          : document.querySelector('input[name="status"]:checked').value;
-      statusFilter = statusFilter == "any" ? "" : statusFilter;
-      speciesFilter = document.getElementById("speciesInput").value.trim();
-      typeFilter = document.getElementById("typeInput").value.trim();
-      genderFilter =
-        document.querySelector('input[name="gender"]:checked') == null
-          ? ""
-          : document.querySelector('input[name="gender"]:checked').value;
-      genderFilter = genderFilter == "any" ? "" : genderFilter;
+      document.querySelector('input[name="status"]:checked') == null
+        ? ""
+        : document.querySelector('input[name="status"]:checked').value;
+    statusFilter = statusFilter == "any" ? "" : statusFilter;
+    speciesFilter = speciesInput.value.trim();
+    typeFilter = typeInput.value.trim();
+    genderFilter =
+      document.querySelector('input[name="gender"]:checked') == null
+        ? ""
+        : document.querySelector('input[name="gender"]:checked').value;
+    genderFilter = genderFilter == "any" ? "" : genderFilter;
 
-      currentPage = 1;
-      fetchAndDisplayData();
-      filterOptions.classList.remove("show");
+    currentPage = 1;
+    fetchAndDisplayData();
+    filterOptions.classList.remove("show");
+  }
 
-    
-  });
-
-  resetFilterButton.addEventListener("click", function () {
-    
+  function resetFilters() {
     // Reset status radio buttons
     const statusRadios = document.querySelectorAll('input[name="status"]');
-    statusRadios.forEach(radio => {
-        radio.checked = false;
+    statusRadios.forEach((radio) => {
+      radio.checked = false;
     });
 
     // Reset species and type input fields
-    document.getElementById('speciesInput').value = '';
-    document.getElementById('typeInput').value = '';
+    speciesInput.value = "";
+    typeInput.value = "";
 
     // Reset gender radio buttons
     const genderRadios = document.querySelectorAll('input[name="gender"]');
-    genderRadios.forEach(radio => {
-        radio.checked = false;
+    genderRadios.forEach((radio) => {
+      radio.checked = false;
     });
-
-    
-  });
-
-  document.getElementById("searchInput").addEventListener("input", function () {
-    nameFilter = this.value.trim();
-    currentPage = 1;
-
-    fetchAndDisplayData();
-  });
-
-  function fetchAndDisplayData() {
-    let filterQuery = `?page=${currentPage}`;
-    if (nameFilter != "") {
-      filterQuery += `&name=${nameFilter}`;
-    }
-    if (statusFilter != "") {
-      filterQuery += `&status=${statusFilter}`;
-    }
-    if (speciesFilter != "") {
-      filterQuery += `&species=${speciesFilter}`;
-    }
-    if (typeFilter != "") {
-      filterQuery += `&type=${typeFilter}`;
-    }
-    if (genderFilter != "") {
-      filterQuery += `&gender=${genderFilter}`;
-    }
-
-    let fetchUrl = apiUrl + filterQuery;
-
-    let characters = [];
-    try {
-      fetch(fetchUrl)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.error == null) {
-            hideNoMatchesMessage();
-            pageCount = data.info.pages;
-            characters = data.results;
-
-            characterContainer.innerHTML = "";
-
-            characters.forEach((character) => {
-              const card = createCharacterCard(character);
-              card.addEventListener("click", () =>
-                toggleCharacterDetails(character)
-              );
-              characterContainer.appendChild(card);
-            });
-            updatePageSelect(data.info.pages, currentPage);
-          } else {
-            showNoMatchesMessage();
-            pageCount = 1;
-            characters = [];
-
-            characterContainer.innerHTML = "";
-            updatePageSelect(1, 1);
-          }
-        });
-    } catch (err) {
-      console.log(
-        `An error has ocurred while trying to fetch the resources. (${err})`
-      );
-    }
   }
 
   function createCharacterCard(character) {
@@ -173,7 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const characterImg = document.getElementById(
           `characterImage${character.id}`
         );
-        characterImg.src = imageUrl;
+        if (characterImg != null) {
+          characterImg.src = imageUrl;
+        }
       })
       .catch((error) => {
         console.log("Error fetching image:", error);
@@ -211,12 +163,18 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <div class="image-and-summary">
                 <div class="detail-image-container">
-                    <img src="${character.image}" alt="${character.name}" class="detail-char-img">
+                    <img src="${character.image}" alt="${
+      character.name
+    }" class="detail-char-img">
                 </div>
                 <div class="data-summary">
                     <p>Status:  ${character.status}</p>
                     <p>Species:  ${character.species}</p>
-                    ${character.type != "" ? `<p>Type: ${character.type}</p>` : ""}
+                    ${
+                      character.type != ""
+                        ? `<p>Type: ${character.type}</p>`
+                        : ""
+                    }
                     <p>Gender: ${character.gender}</p>
                     <p>Origin: ${character.origin.name}</p>
                     <p>Last Known Location: ${character.location.name}</p>
@@ -228,8 +186,6 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
     fetchEpisodeInfo(character.id);
 
-    
-
     detailContainer.classList.add("show");
     currentCharacter = character;
     // characterContainer.style.width = "85vw";
@@ -240,9 +196,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function hideCharacterDetails() {
     detailContainer.classList.remove("show");
-    if(currentCard!=null)
-    {
-        currentCard.classList.remove("selected-card");
+    if (currentCard != null) {
+      currentCard.classList.remove("selected-card");
     }
     currentCard = null;
     detailContainer.innerHTML = "";
@@ -303,10 +258,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function fetchEpisodeInfo(characterId) {
-    const apiUrl = `https://rickandmortyapi.com/api/character/${characterId}`;
+    const characterUrl = apiUrl+characterId;
     const episodeList = document.getElementById("episodeList");
-
-    fetch(apiUrl)
+    
+    fetch(characterUrl)
       .then((response) => response.json())
       .then((data) => {
         const episodeIds = data.episode.map((ep) => ep.split("/").pop());
@@ -328,5 +283,84 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  fetchAndDisplayData("https://rickandmortyapi.com/api/character");
+  function fetchAndDisplayData() {
+    let filterQuery = `?page=${currentPage}`;
+    if (nameFilter != "") {
+      filterQuery += `&name=${nameFilter}`;
+    }
+    if (statusFilter != "") {
+      filterQuery += `&status=${statusFilter}`;
+    }
+    if (speciesFilter != "") {
+      filterQuery += `&species=${speciesFilter}`;
+    }
+    if (typeFilter != "") {
+      filterQuery += `&type=${typeFilter}`;
+    }
+    if (genderFilter != "") {
+      filterQuery += `&gender=${genderFilter}`;
+    }
+
+    let fetchUrl = apiUrl + filterQuery;
+
+    let characters = [];
+    try {
+      fetch(fetchUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.error == null) {
+            hideNoMatchesMessage();
+            pageCount = data.info.pages;
+            characters = data.results;
+
+            characterContainer.innerHTML = "";
+
+            characters.forEach((character) => {
+              const card = createCharacterCard(character);
+              card.addEventListener("click", () =>
+                toggleCharacterDetails(character)
+              );
+              characterContainer.appendChild(card);
+            });
+            updatePageSelect(data.info.pages, currentPage);
+          } else {
+            showNoMatchesMessage();
+            pageCount = 1;
+            characters = [];
+
+            characterContainer.innerHTML = "";
+            updatePageSelect(1, 1);
+          }
+        });
+    } catch (err) {
+      console.log(
+        `An error has ocurred while trying to fetch the resources. (${err})`
+      );
+    }
+  }
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  //---------------------EVENT LISTENERS---------------------
+  mainTitle.addEventListener("click", () => resetPage);
+
+  prevPageButton.addEventListener("click", () => changePage(currentPage - 1));
+
+  nextPageButton.addEventListener("click", () => changePage(currentPage + 1));
+
+  filterButton.addEventListener("click", () => toggleFilters());
+
+  applyFilterButton.addEventListener("click", () => applyFilters());
+
+  resetFilterButton.addEventListener("click", () => resetFilters());
+
+  searchInput.addEventListener("input", function () {
+    nameFilter = this.value.trim();
+    currentPage = 1;
+    fetchAndDisplayData();
+  });
+
+  
+
+  fetchAndDisplayData();
 });
