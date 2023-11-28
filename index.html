@@ -21,21 +21,111 @@
       <h1>Rick and Morty Character Explorer</h1>
     </div>
     <div class="search-options">
-      <div class="filters-container" id="filterContainer">
-        <div class="filters-title">Filter by:</div>
-        <div class="filters-list">
-          <!-- <div>Status</div>
-          <div>Species</div>
-          <div>Type</div>
-          <div>Gender</div> -->
-        </div>
-      </div>
+      <div class="filter-button" id="filterButton">Filters</div>
       <input type="text" id="searchInput" placeholder="Search characters..." />
       <div class="page-select" id="pageSelect">
         <div class="select-selected">Select Page</div>
         <div class="select-items">
           <div>Page 1</div>
           <div>Page 2</div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-options-container" id="filterOptionsContainer">
+      <div class="filter-options">
+        <div class="filter-section status-filter-container">
+          <label>Status:</label>
+          <div class="radio-options">
+            <div>
+              <input type="radio" name="status" value="any" id="anyStatus" />
+              <label for="anyStatus">Any</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="status"
+                value="alive"
+                id="aliveStatus"
+              />
+              <label for="aliveStatus">Alive</label>
+            </div>
+            <div>
+              <input type="radio" name="status" value="dead" id="deadStatus" />
+              <label for="deadStatus">Dead</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="status"
+                value="unknown"
+                id="unknownStatus"
+              />
+              <label for="unknownStatus">Unknown</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-section species-filter-container">
+          <label>Species:</label>
+          <input type="text" class="filter-text-input" id="speciesInput" />
+        </div>
+
+        <div class="filter-section type-filter-container">
+          <label>Type:</label>
+          <input type="text" class="filter-text-input" id="typeInput" />
+        </div>
+
+        <div class="filter-section gender-filter-container">
+          <label>Gender:</label>
+          <div class="radio-options">
+            <div>
+              <input type="radio" name="gender" value="any" id="anyGender" />
+              <label for="anyGender">Any</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="gender"
+                value="female"
+                id="femaleGender"
+              />
+              <label for="femaleGender">Female</label>
+            </div>
+            <div>
+              <input type="radio" name="gender" value="male" id="maleGender" />
+              <label for="maleGender">Male</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="gender"
+                value="genderless"
+                id="genderlessGender"
+              />
+              <label for="genderlessGender">Genderless</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="gender"
+                value="unknown"
+                id="unknownGender"
+              />
+              <label for="unknownGender">Unknown</label>
+            </div>
+          </div>
+        </div>
+        <div class="filter-section action-button-section">
+          <div class="action-button" id="applyFilterButton">
+            <i
+              class="apply-button fa-solid fa-magnifying-glass-arrow-right"
+            ></i>
+            <p class="apply-label">Apply</p>
+          </div>
+          <div class="action-button" id="resetFilterButton">
+            <i class="reset-button fa-solid fa-arrow-rotate-left"></i>
+            <p class="reset-label">Reset</p>
+          </div>
         </div>
       </div>
     </div>

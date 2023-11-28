@@ -5,11 +5,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const pageSelect = document.getElementById("pageSelect");
   const prevPageButton = document.getElementById("prevPageButton");
   const nextPageButton = document.getElementById("nextPageButton");
+  const filterButton = document.getElementById("filterButton");
+  const filterOptions = document.getElementById("filterOptionsContainer");
+  const applyFilterButton = document.getElementById("applyFilterButton");
+  const resetFilterButton = document.getElementById("resetFilterButton");
   const apiUrl = `https://rickandmortyapi.com/api/character/`;
   let currentCard = null;
   let currentCharacter = null;
   let currentPage = 1;
   let pageCount = 42;
+  let filtersShown = false;
 
   //------------------FILTERS------------------
   let nameFilter = "";
@@ -22,6 +27,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
   prevPageButton.addEventListener("click", () => changePage(currentPage - 1));
   nextPageButton.addEventListener("click", () => changePage(currentPage + 1));
+  filterButton.addEventListener("click", () => {
+    if (filtersShown) {
+      filterOptions.classList.remove("show");
+    } else {
+      filterOptions.classList.add("show");
+    }
+    filtersShown = !filtersShown;
+  });
+
+  applyFilterButton.addEventListener("click", function () {
+    
+    statusFilter =
+        document.querySelector('input[name="status"]:checked') == null
+          ? ""
+          : document.querySelector('input[name="status"]:checked').value;
+      statusFilter = statusFilter == "any" ? "" : statusFilter;
+      speciesFilter = document.getElementById("speciesInput").value.trim();
+      typeFilter = document.getElementById("typeInput").value.trim();
+      genderFilter =
+        document.querySelector('input[name="gender"]:checked') == null
+          ? ""
+          : document.querySelector('input[name="gender"]:checked').value;
+      genderFilter = genderFilter == "any" ? "" : genderFilter;
+
+      currentPage = 1;
+      fetchAndDisplayData();
+      filterOptions.classList.remove("show");
+
+    
+  });
+
+  resetFilterButton.addEventListener("click", function () {
+    
+    // Reset status radio buttons
+    const statusRadios = document.querySelectorAll('input[name="status"]');
+    statusRadios.forEach(radio => {
+        radio.checked = false;
+    });
+
+    // Reset species and type input fields
+    document.getElementById('speciesInput').value = '';
+    document.getElementById('typeInput').value = '';
+
+    // Reset gender radio buttons
+    const genderRadios = document.querySelectorAll('input[name="gender"]');
+    genderRadios.forEach(radio => {
+        radio.checked = false;
+    });
+
+    
+  });
 
   document.getElementById("searchInput").addEventListener("input", function () {
     nameFilter = this.value.trim();
@@ -80,8 +136,9 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
     } catch (err) {
-      console.log(`An error has ocurred while trying to fetch the resources. (${err})`);
-      
+      console.log(
+        `An error has ocurred while trying to fetch the resources. (${err})`
+      );
     }
   }
 
@@ -133,11 +190,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function showNoMatchesMessage(){
+  function showNoMatchesMessage() {
     noMatchesContainer.classList.add("show");
   }
 
-  function hideNoMatchesMessage(){
+  function hideNoMatchesMessage() {
     noMatchesContainer.classList.remove("show");
   }
 
@@ -169,17 +226,22 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
     fetchEpisodeInfo(character.id);
 
-    const closeButton = document.getElementById("closeDetailButton");
-    closeButton.addEventListener("click", () => hideCharacterDetails());
+    
 
     detailContainer.classList.add("show");
     currentCharacter = character;
     characterContainer.style.width = "85vw";
+
+    const closeButton = document.getElementById("closeDetailButton");
+    closeButton.addEventListener("click", () => hideCharacterDetails());
   }
 
   function hideCharacterDetails() {
     detailContainer.classList.remove("show");
-    currentCard.classList.remove("selected-card");
+    if(currentCard!=null)
+    {
+        currentCard.classList.remove("selected-card");
+    }
     currentCard = null;
     detailContainer.innerHTML = "";
     currentCharacter = null;
