@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const characterImage = document.createElement("img");
     characterImage.classList.add("character-image");
-    characterImage.src = "/images/placeholder.jpeg";
+    characterImage.src = "./images/placeholder.jpeg";
     characterImage.id = `characterImage${character.id}`;
     characterImage.alt = character.name;
 
